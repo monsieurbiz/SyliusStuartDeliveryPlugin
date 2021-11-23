@@ -1,0 +1,6 @@
+suites:
+    main:
+        namespace: MonsieurBiz\SyliusStuartDeliveryPlugin
+        psr4_prefix: MonsieurBiz\SyliusStuartDeliveryPlugin
+        src_path: src
+        spec_path: tests
