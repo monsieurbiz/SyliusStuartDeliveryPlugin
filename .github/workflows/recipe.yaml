@@ -68,6 +68,7 @@ jobs:
         run: |
             composer config repositories.plugin '{"type": "path", "url": "../plugin/"}'
             composer config extra.symfony.allow-contrib true
+            composer config minimum-stability dev
             composer config secure-http false
             composer config --unset platform.php
 
