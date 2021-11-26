@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "~7.4|~8.0",
-        "sylius/sylius": ">=1.8 <1.11"
+        "sylius/sylius": ">=1.8 <1.11",
+        "monsieurbiz/sylius-settings-plugin": "^1.0.0",
+        "monsieurbiz/sylius-shipping-slot-plugin": "^1.0@RC"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
