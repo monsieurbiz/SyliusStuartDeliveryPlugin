@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Monsieur Biz' Shipping Slot plugin for Sylius.
+ * This file is part of Monsieur Biz' Stuart delivery plugin for Sylius.
  *
  * (c) Monsieur Biz <sylius@monsieurbiz.com>
  *
