@@ -1,0 +1,2 @@
+imports:
+    - { resource: 'monsieurbiz/settings.yaml' }

@@ -1,0 +1,8 @@
+monsieurbiz_stuart_delivery_plugin:
+  plugin_name: Stuart delivery
+  description: Manage your courier delivery with Stuart
+  settings:
+    address: Picking address of the package
+    postcode: Picking postcode of the package
+    city: Picking city of the package
+    phone_number: Picking phone number of the package
