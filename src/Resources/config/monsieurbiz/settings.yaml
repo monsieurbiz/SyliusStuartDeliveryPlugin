@@ -1,6 +1,6 @@
 monsieurbiz_sylius_settings:
     plugins:
-        monsieurbiz.stuart_delivery_plugin:
+        monsieurbiz.stuartDelivery:
             vendor_name: Monsieur Biz
             vendor_url: https://monsieurbiz.com/
             plugin_name: monsieurbiz_stuart_delivery_plugin.plugin_name

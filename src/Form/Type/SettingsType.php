@@ -15,8 +15,10 @@ namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type;
 
 use MonsieurBiz\SyliusSettingsPlugin\Form\AbstractSettingsType;
 use MonsieurBiz\SyliusSettingsPlugin\Form\SettingsTypeInterface;
+use MonsieurBiz\SyliusStuartDeliveryPlugin\Validator\PickupAddress;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class SettingsType extends AbstractSettingsType implements SettingsTypeInterface
@@ -70,5 +72,13 @@ class SettingsType extends AbstractSettingsType implements SettingsTypeInterface
                 'required' => false,
             ]
         );
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        parent::configureOptions($resolver);
+        $resolver->setNormalizer('constraints', function (OptionsResolver $resolver, $value) {
+            return array_merge($value, [new PickupAddress()]);
+        });
     }
 }
