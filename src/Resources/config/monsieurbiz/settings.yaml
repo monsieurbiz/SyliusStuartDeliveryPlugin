@@ -1,0 +1,11 @@
+monsieurbiz_sylius_settings:
+    plugins:
+        monsieurbiz.stuart_delivery_plugin:
+            vendor_name: Monsieur Biz
+            vendor_url: https://monsieurbiz.com/
+            plugin_name: monsieurbiz_stuart_delivery_plugin.plugin_name
+            description: monsieurbiz_stuart_delivery_plugin.description
+            icon: box
+            use_locales: false
+            classes:
+                form: MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\SettingsType

@@ -1,0 +1,8 @@
+monsieurbiz_stuart_delivery_plugin:
+  plugin_name: Livraison avec Stuart
+  description: Gérez vos livraisons coursier avec Stuart
+  settings:
+    address: Adresse de récupération du colis
+    postcode: Code postal de récupération du colis
+    city: Ville de récupération du colis
+    phone_number: Téléphone de récupération du colis
