@@ -8,7 +8,8 @@
         "php": "~7.4|~8.0",
         "sylius/sylius": ">=1.8 <1.11",
         "monsieurbiz/sylius-settings-plugin": "^1.0.0",
-        "monsieurbiz/sylius-shipping-slot-plugin": "^1.0@RC"
+        "monsieurbiz/sylius-shipping-slot-plugin": "^1.0@RC",
+        "stuartapp/stuart-client-php": "^3.6"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
