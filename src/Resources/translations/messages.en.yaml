@@ -6,3 +6,8 @@ monsieurbiz_stuart_delivery_plugin:
     postcode: Pickup postcode of the package
     city: Pickup city of the package
     phone_number: Pickup phone number of the package
+    api_mode: API mode
+    api_mode_sandbox: Sandbox
+    api_mode_production: Production
+    api_client_id: API Client ID
+    api_client_secret: API Client Secret

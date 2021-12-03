@@ -1,2 +1,3 @@
 monsieurbiz_stuart_delivery_plugin:
-    incorrect_pickup_address: 'Incorrect pickup address'
+    incorrect_pickup_address: Incorrect pickup address
+    incorrect_api_credentials: Incorrect API credentials
