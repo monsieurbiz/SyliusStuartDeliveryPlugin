@@ -16,6 +16,7 @@ namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type;
 use MonsieurBiz\SyliusSettingsPlugin\Form\AbstractSettingsType;
 use MonsieurBiz\SyliusSettingsPlugin\Form\SettingsTypeInterface;
 use MonsieurBiz\SyliusStuartDeliveryPlugin\Validator\PickupAddress;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +24,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class SettingsType extends AbstractSettingsType implements SettingsTypeInterface
 {
+    public const API_MODE_SANDBOX = 'sandbox';
+
+    public const API_MODE_PRODUCTION = 'production';
+
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
@@ -32,6 +37,43 @@ class SettingsType extends AbstractSettingsType implements SettingsTypeInterface
         $constraints = $isDefaultForm ? [
             new Assert\NotBlank(),
         ] : [];
+
+        $this->addWithDefaultCheckbox(
+            $builder,
+            'api_mode',
+            ChoiceType::class,
+            [
+                'label' => 'monsieurbiz_stuart_delivery_plugin.settings.api_mode',
+                'required' => true,
+                'constraints' => $constraints,
+                'choices' => [
+                    'monsieurbiz_stuart_delivery_plugin.settings.api_mode_sandbox' => self::API_MODE_SANDBOX,
+                    'monsieurbiz_stuart_delivery_plugin.settings.api_mode_production' => self::API_MODE_PRODUCTION,
+                ],
+            ]
+        );
+
+        $this->addWithDefaultCheckbox(
+            $builder,
+            'api_client_id',
+            TextType::class,
+            [
+                'label' => 'monsieurbiz_stuart_delivery_plugin.settings.api_client_id',
+                'required' => true,
+                'constraints' => $constraints,
+            ]
+        );
+
+        $this->addWithDefaultCheckbox(
+            $builder,
+            'api_client_secret',
+            TextType::class,
+            [
+                'label' => 'monsieurbiz_stuart_delivery_plugin.settings.api_client_secret',
+                'required' => true,
+                'constraints' => $constraints,
+            ]
+        );
 
         $this->addWithDefaultCheckbox(
             $builder,
