@@ -9,3 +9,7 @@ monsieurbiz_sylius_settings:
             use_locales: false
             classes:
                 form: MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\SettingsType
+            default_values:
+                api_mode: '%env(resolve:MONSIEURBIZ_STUART_DELIVERY_API_MODE)%'
+                api_client_id: '%env(resolve:MONSIEURBIZ_STUART_DELIVERY_API_CLIENT_ID)%'
+                api_client_secret: '%env(resolve:MONSIEURBIZ_STUART_DELIVERY_API_CLIENT_SECRET)%'

@@ -6,5 +6,10 @@
     },
     "copy-from-recipe": {
         "config/": "%CONFIG_DIR%/"
-    }
+    },
+    "env": {
+      "MONSIEURBIZ_STUART_DELIVERY_API_MODE": "sandbox",
+      "MONSIEURBIZ_STUART_DELIVERY_API_CLIENT_ID": "",
+      "MONSIEURBIZ_STUART_DELIVERY_API_CLIENT_SECRET": ""
+  }
 }
