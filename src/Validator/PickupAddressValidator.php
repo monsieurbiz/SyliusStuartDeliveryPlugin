@@ -13,12 +13,21 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Validator;
 
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use MonsieurBiz\SyliusSettingsPlugin\Settings\Settings;
+use MonsieurBiz\SyliusStuartDeliveryPlugin\Stuart\ClientInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 final class PickupAddressValidator extends ConstraintValidator
 {
+    private ClientInterface $client;
+
+    public function __construct(ClientInterface $client)
+    {
+        $this->client = $client;
+    }
+
     /**
      * Add violation if pickup address is not validated by API.
      *
@@ -26,6 +35,7 @@ final class PickupAddressValidator extends ConstraintValidator
      * @param PickupAddress $constraint
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function validate($value, Constraint $constraint): void
     {
@@ -46,13 +56,28 @@ final class PickupAddressValidator extends ConstraintValidator
 
             $isDefault = $scope === Settings::DEFAULT_KEY . '-' . Settings::DEFAULT_KEY;
 
-            $address = $this->getFieldValue('address', $values, $defaultValues, $isDefault);
-            // $postcode = $this->getFieldValue('postcode', $values, $defaultValues, $isDefault);
-            // $city = $this->getFieldValue('city', $values, $defaultValues, $isDefault);
-            // $phoneNumber = $this->getFieldValue('phone_number', $values, $defaultValues, $isDefault);
+            // API info
+            $apiMode = $this->getFieldValue('api_mode', $values, $defaultValues, $isDefault);
+            $apiClientId = $this->getFieldValue('api_client_id', $values, $defaultValues, $isDefault);
+            $apiClientSecret = $this->getFieldValue('api_client_secret', $values, $defaultValues, $isDefault);
 
-            /** @TODO call API to check address instead of this simple condition */
-            $valid = !$address;
+            // Address info
+            $address = (string) $this->getFieldValue('address', $values, $defaultValues, $isDefault);
+            $postcode = (string) $this->getFieldValue('postcode', $values, $defaultValues, $isDefault);
+            $city = (string) $this->getFieldValue('city', $values, $defaultValues, $isDefault);
+            $phoneNumber = $this->getFieldValue('phone_number', $values, $defaultValues, $isDefault);
+
+            try {
+                // Use form information to init the Stuart Client
+                $this->client->init($apiMode, $apiClientId, $apiClientSecret);
+                $valid = $this->client->validatePickupAddress($address, $postcode, $city, $phoneNumber);
+            } catch (IdentityProviderException $exception) {
+                $this->context->buildViolation($constraint->apiMessage)->atPath('[api_mode]')->addViolation();
+                $this->context->buildViolation($constraint->apiMessage)->atPath('[api_client_id]')->addViolation();
+                $this->context->buildViolation($constraint->apiMessage)->atPath('[api_client_secret]')->addViolation();
+
+                return;
+            }
         }
 
         if ($valid) {

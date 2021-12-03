@@ -19,6 +19,8 @@ final class PickupAddress extends Constraint
 {
     public string $message = 'monsieurbiz_stuart_delivery_plugin.incorrect_pickup_address';
 
+    public string $apiMessage = 'monsieurbiz_stuart_delivery_plugin.incorrect_api_credentials';
+
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
