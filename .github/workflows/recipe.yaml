@@ -78,13 +78,6 @@ jobs:
             composer config secure-http false
             composer config --unset platform.php
 
-      - name: Install monsieurbiz/sylius-shipping-slot-plugin
-        working-directory: ./sylius
-        run: |
-          composer require monsieurbiz/sylius-shipping-slot-plugin="^1.0@RC" --no-install --no-update
-          sed -i -e "s/];/MonsieurBiz\\\SyliusShippingSlotPlugin\\\MonsieurBizSyliusShippingSlotPlugin::class => ['all' => true], ];/g" config/bundles.php
-          cp -Rv $PWD/../plugin/dist/* ./
-
       - name: Require plugin without install
         working-directory: ./sylius
         run: |
