@@ -6,3 +6,8 @@ monsieurbiz_stuart_delivery_plugin:
     postcode: Code postal de récupération du colis
     city: Ville de récupération du colis
     phone_number: Téléphone de récupération du colis
+    api_mode: API mode
+    api_mode_sandbox: Sandbox
+    api_mode_production: Production
+    api_client_id: API Client ID
+    api_client_secret: API Client Secret

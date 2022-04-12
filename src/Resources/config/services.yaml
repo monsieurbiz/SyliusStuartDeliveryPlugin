@@ -3,6 +3,10 @@ services:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            $monsieurbizStuartDeliveryApiMode: '%env(resolve:MONSIEURBIZ_STUART_DELIVERY_API_MODE)%'
+            $monsieurbizStuartDeliveryApiClientId: '%env(resolve:MONSIEURBIZ_STUART_DELIVERY_API_CLIENT_ID)%'
+            $monsieurbizStuartDeliveryApiClientSecret: '%env(resolve:MONSIEURBIZ_STUART_DELIVERY_API_CLIENT_SECRET)%'
 
     MonsieurBiz\SyliusStuartDeliveryPlugin\:
         resource: '../../*'
