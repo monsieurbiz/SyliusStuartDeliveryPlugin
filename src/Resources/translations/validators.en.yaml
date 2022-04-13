@@ -1,3 +1,4 @@
 monsieurbiz_stuart_delivery_plugin:
     incorrect_pickup_address: Incorrect pickup address
     incorrect_api_credentials: Incorrect API credentials
+    no_package_type_and_no_transport_type: You should choose at least one of package type or transport type

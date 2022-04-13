@@ -11,3 +11,22 @@ monsieurbiz_stuart_delivery_plugin:
     api_mode_production: Production
     api_client_id: API Client ID
     api_client_secret: API Client Secret
+    ui:
+        package_type: Package type
+        package_type_help: 🇪🇸 🇬🇧 Spain and UK only. Mandatory if Transport Type is empty. 
+        package_types:
+            l: Large
+            m: Medium
+            s: Small
+            xl: X-large
+            xs: X-small
+        transport_type: Transport type
+        transport_type_help: 🇫🇷 France only. Mandatory if Package Type is empty.
+        transport_types:
+            bike: Bike
+            car: Car
+            cargo_bike: Cargo bike
+            cargo_bike_xl: Cargo bike XL
+            motorbike: Motorbike
+            motorbike_xl: Motobike XL
+            van: Van

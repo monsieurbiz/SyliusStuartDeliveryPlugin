@@ -1,0 +1,17 @@
+{% extends '@SyliusUi/Form/theme.html.twig' %}
+
+{% block monsieurbiz_stuart_delivery_package_and_delivery_widget -%}
+
+    <div class="field">
+        {{ form_label(form.transportType) }}
+        {{ form_widget(form.transportType) }}
+        <small>{{ form_help(form.transportType) }}</small>
+    </div>
+
+    <div class="field">
+        {{ form_label(form.packageType) }}
+        {{ form_widget(form.packageType) }}
+        <small>{{ form_help(form.packageType) }}</small>
+    </div>
+
+{%- endblock monsieurbiz_stuart_delivery_package_and_delivery_widget %}
