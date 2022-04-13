@@ -1,5 +1,6 @@
 monsieurbiz_stuart_delivery_plugin:
   plugin_name: Livraison avec Stuart
+  calculator: Calculateur de prix pour une livraison Stuart
   description: Gérez vos livraisons coursier avec Stuart
   rule_checker: Validation de l'adresse de livraison Stuart
   settings:
