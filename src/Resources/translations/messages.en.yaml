@@ -11,6 +11,7 @@ monsieurbiz_stuart_delivery_plugin:
     api_mode_production: Production
     api_client_id: API Client ID
     api_client_secret: API Client Secret
+    rule_checker: Stuart delivery address validator
     ui:
         package_type: Package type
         package_type_help: 🇪🇸 🇬🇧 Spain and UK only. Mandatory if Transport Type is empty. 
