@@ -10,3 +10,9 @@ services:
 
     MonsieurBiz\SyliusStuartDeliveryPlugin\:
         resource: '../../*'
+    MonsieurBiz\SyliusStuartDeliveryPlugin\Checker\Rule\StuartRuleChecker:
+        tags:
+            -   name: sylius.shipping_method_rule_checker
+                type: !php/const MonsieurBiz\SyliusStuartDeliveryPlugin\Checker\Rule\StuartRuleChecker::TYPE
+                label: 'monsieurbiz_stuart_delivery_plugin.rule_checker'
+                form_type: MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\Rule\StuartRuleConfigurationType
