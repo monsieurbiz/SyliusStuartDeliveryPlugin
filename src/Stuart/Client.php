@@ -20,6 +20,8 @@ use Stuart\Infrastructure\Authenticator;
 use Stuart\Infrastructure\Environment;
 use Stuart\Infrastructure\HttpClient;
 use Stuart\Job;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Psr16Cache;
 
 final class Client implements ClientInterface
 {
@@ -54,7 +56,8 @@ final class Client implements ClientInterface
         $environment = ($apiMode ?? $this->settings['api_mode'] ?? $this->monsieurbizStuartDeliveryApiMode) === SettingsType::API_MODE_PRODUCTION ? Environment::PRODUCTION : Environment::SANDBOX;
         $apiClientId = $apiClientId ?? $this->settings['api_client_id'] ?? $this->monsieurbizStuartDeliveryApiClientId;
         $apiClientSecret = $apiClientSecret ?? $this->settings['api_client_secret'] ?? $this->monsieurbizStuartDeliveryApiClientSecret;
-        $authenticator = new Authenticator($environment, $apiClientId, $apiClientSecret);
+        $cache = new Psr16Cache(new FilesystemAdapter());
+        $authenticator = new Authenticator($environment, $apiClientId, $apiClientSecret, $cache);
         $this->stuartClient = new StuartClient(new HttpClient($authenticator));
     }
 
