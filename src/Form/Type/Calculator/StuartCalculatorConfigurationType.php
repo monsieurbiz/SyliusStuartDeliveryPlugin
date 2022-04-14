@@ -13,13 +13,8 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\Calculator;
 
-use MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\PackageAndDeliveryType;
 use Symfony\Component\Form\AbstractType;
 
 final class StuartCalculatorConfigurationType extends AbstractType
 {
-    public function getParent(): string
-    {
-        return PackageAndDeliveryType::class;
-    }
 }
