@@ -22,6 +22,9 @@ final class StuartRuleChecker extends AbstractServiceInteraction implements Rule
 {
     public const TYPE = 'stuart';
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function isEligible(ShippingSubjectInterface $subject, array $configuration): bool
     {
         /** @var ShipmentInterface $subject */
@@ -30,15 +33,21 @@ final class StuartRuleChecker extends AbstractServiceInteraction implements Rule
             return false;
         }
 
+        $order = $this->getOrder($subject);
+        if (null === $order) {
+            return false;
+        }
+
         $pickupAddress = $this->getPickupAddress();
         $dropOffAddress = $this->getDropOffAddress($shippingAddress);
+        $deliveryType = $this->getDeliveryTypeProvider()->getType($order);
 
         try {
             return $this->getClient()->validateJob(
                 $pickupAddress,
                 $dropOffAddress,
-                $configuration['transportType'] ?? null,
-                $configuration['packageType'] ?? null
+                $deliveryType->getTransportType(),
+                $deliveryType->getPackageType()
             );
         } catch (\Exception $e) {
             $this->getLogger()->error($e->getMessage());
