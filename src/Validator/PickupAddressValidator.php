@@ -17,9 +17,8 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use MonsieurBiz\SyliusSettingsPlugin\Settings\Settings;
 use MonsieurBiz\SyliusStuartDeliveryPlugin\Stuart\ClientInterface;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 
-final class PickupAddressValidator extends ConstraintValidator
+final class PickupAddressValidator extends AbstractSettingValidator
 {
     private ClientInterface $client;
 
@@ -89,21 +88,5 @@ final class PickupAddressValidator extends ConstraintValidator
         $this->context->buildViolation($constraint->message)->atPath('[postcode]')->addViolation();
         $this->context->buildViolation($constraint->message)->atPath('[city]')->addViolation();
         $this->context->buildViolation($constraint->message)->atPath('[phone_number]')->addViolation();
-    }
-
-    private function getFieldValue(string $field, array $values, array $defaultValues, bool $isDefault): ?string
-    {
-        // Default scope
-        if ($isDefault) {
-            return $values[$field] ?? null;
-        }
-
-        // Channel scope but use default
-        if ($values[$field . '___' . Settings::DEFAULT_KEY] ?? false) {
-            return $defaultValues[$field] ?? null;
-        }
-
-        // Channel scope and use channel value
-        return $values[$field] ?? null;
     }
 }

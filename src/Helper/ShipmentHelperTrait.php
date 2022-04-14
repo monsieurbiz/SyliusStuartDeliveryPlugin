@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Helper;
 
 use Sylius\Component\Addressing\Model\AddressInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface as CoreShipmentInterface;
 use Sylius\Component\Shipping\Model\ShipmentInterface;
 
@@ -28,5 +29,16 @@ trait ShipmentHelperTrait
         }
 
         return null !== $shippingAddress->getPostcode() ? $shippingAddress : null;
+    }
+
+    public function getOrder(ShipmentInterface $subject): ?OrderInterface
+    {
+        /** @var CoreShipmentInterface $subject */
+        $order = $subject->getOrder();
+        if (null === $order) {
+            return null;
+        }
+
+        return $order;
     }
 }

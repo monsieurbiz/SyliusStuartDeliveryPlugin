@@ -13,13 +13,8 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\Rule;
 
-use MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\PackageAndDeliveryType;
 use Symfony\Component\Form\AbstractType;
 
 final class StuartRuleConfigurationType extends AbstractType
 {
-    public function getParent(): string
-    {
-        return PackageAndDeliveryType::class;
-    }
 }

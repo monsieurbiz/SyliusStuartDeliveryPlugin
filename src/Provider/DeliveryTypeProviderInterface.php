@@ -11,10 +11,12 @@
 
 declare(strict_types=1);
 
-namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\Calculator;
+namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Provider;
 
-use Symfony\Component\Form\AbstractType;
+use MonsieurBiz\SyliusStuartDeliveryPlugin\Model\DeliveryTypeInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 
-final class StuartCalculatorConfigurationType extends AbstractType
+interface DeliveryTypeProviderInterface
 {
+    public function getType(OrderInterface $order): DeliveryTypeInterface;
 }
