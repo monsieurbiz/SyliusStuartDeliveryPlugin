@@ -51,6 +51,8 @@ interface ClientInterface
 
     public function validateJob(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): bool;
 
+    public function getJobETA(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): ?int;
+
     public function getPricing(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): ?int;
 
     public function getOnlineAddress(string $address, string $postcode, string $city): string;
