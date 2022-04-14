@@ -98,6 +98,14 @@ final class Client implements ClientInterface
         return true === $result;
     }
 
+    public function getJobETA(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): ?int
+    {
+        $job = $this->buildJob($pickupAddress, $dropOffAddress, $transportType, $packageType);
+        $result = $this->getStuartClient()->getEta($job);
+
+        return $result->eta ?? null;
+    }
+
     public function getPricing(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): ?int
     {
         $job = $this->buildJob($pickupAddress, $dropOffAddress, $transportType, $packageType);
