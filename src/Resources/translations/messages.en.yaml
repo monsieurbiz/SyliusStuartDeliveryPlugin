@@ -14,6 +14,7 @@ monsieurbiz_stuart_delivery_plugin:
         api_client_id: API Client ID
         api_client_secret: API Client Secret
     ui:
+        no_tracked_order: It seems that your order have no tracking available for the moment.
         package_type: Package type
         package_type_help: 🇪🇸 🇬🇧 Spain and UK only. Mandatory if Transport Type is empty. 
         package_types:
@@ -22,6 +23,7 @@ monsieurbiz_stuart_delivery_plugin:
             s: Small
             xl: X-large
             xs: X-small
+        stuart_delivery_tracking: Stuart delivery tracking
         transport_type: Transport type
         transport_type_help: 🇫🇷 France only. Mandatory if Package Type is empty.
         transport_types:
