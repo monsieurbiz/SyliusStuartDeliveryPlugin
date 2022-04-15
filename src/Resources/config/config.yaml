@@ -1,6 +1,7 @@
 imports:
     - { resource: 'monsieurbiz/settings.yaml' }
     - { resource: 'sylius/fixtures.yaml' }
+    - { resource: 'sylius/state_machine.yaml' }
 
 framework:
     messenger:
