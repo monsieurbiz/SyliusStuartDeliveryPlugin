@@ -1,0 +1,7 @@
+sylius_ui:
+    events:
+        sylius.shop.account.order.show.subcontent:
+            blocks:
+                stuart_tracking:
+                    priority: 19
+                    template: "@MonsieurBizSyliusStuartDeliveryPlugin/Shop/Account/Order/Show/_stuartTracking.html.twig"
