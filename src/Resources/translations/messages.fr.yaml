@@ -14,6 +14,7 @@ monsieurbiz_stuart_delivery_plugin:
     api_client_id: API Client ID
     api_client_secret: API Client Secret
     ui:
+        no_tracked_order: Il semblerait que votre commande n'ai pas de suivi en temps réèl pour le moment.
         package_type: Type de paquet
         package_type_help: 🇪🇸 🇬🇧 Espagne et Royaume-Uni seulement. Obligatoire si Type de Transport est non renseigné.
         package_types:
@@ -22,6 +23,7 @@ monsieurbiz_stuart_delivery_plugin:
             s: Petit
             xl: Très grand
             xs: Très petit
+        stuart_delivery_tracking: Suivi de votre livraison par coursier
         transport_type: Type de transport
         transport_type_help: 🇫🇷 France Seulement. Obligatoire si Type de Paquet est non renseigné.
         transport_types:
