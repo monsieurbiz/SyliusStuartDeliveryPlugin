@@ -16,6 +16,8 @@ namespace App\Entity\Order;
 use Doctrine\ORM\Mapping as ORM;
 use MonsieurBiz\SyliusShippingSlotPlugin\Entity\OrderInterface as MonsieurBizOrderInterface;
 use MonsieurBiz\SyliusShippingSlotPlugin\Entity\OrderTrait;
+use MonsieurBiz\SyliusStuartDeliveryPlugin\Entity\StuartJobIdInterface;
+use MonsieurBiz\SyliusStuartDeliveryPlugin\Entity\StuartJobIdTrait;
 use Sylius\Component\Core\Model\Order as SyliusOrder;
 use Sylius\Component\Core\Model\OrderInterface;
 
@@ -23,7 +25,9 @@ use Sylius\Component\Core\Model\OrderInterface;
  * @ORM\Entity
  * @ORM\Table(name="sylius_order")
  */
-class Order extends SyliusOrder implements OrderInterface, MonsieurBizOrderInterface
+class Order extends SyliusOrder implements OrderInterface, MonsieurBizOrderInterface, StuartJobIdInterface
 {
     use OrderTrait;
+
+    use StuartJobIdTrait;
 }
