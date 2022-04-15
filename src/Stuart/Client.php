@@ -13,15 +13,19 @@ declare(strict_types=1);
 
 namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Stuart;
 
+use DateTime;
 use MonsieurBiz\SyliusSettingsPlugin\Settings\SettingsInterface;
 use MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\SettingsType;
 use Stuart\Client as StuartClient;
+use Stuart\DropOff;
 use Stuart\Infrastructure\Authenticator;
 use Stuart\Infrastructure\Environment;
 use Stuart\Infrastructure\HttpClient;
 use Stuart\Job;
+use Stuart\Pickup;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
+use Webmozart\Assert\Assert;
 
 final class Client implements ClientInterface
 {
@@ -104,6 +108,45 @@ final class Client implements ClientInterface
         $result = $this->getStuartClient()->getEta($job);
 
         return $result->eta ?? null;
+    }
+
+    /**
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     */
+    public function createJob(
+        string $pickupAddress,
+        string $dropOffAddress,
+        string $reference,
+        string $firstName,
+        string $lastName,
+        string $email,
+        ?string $phone = null,
+        ?DateTime $pickupAt = null,
+        ?string $transportType = null,
+        ?string $packageType = null
+    ): ?int {
+        $job = $this->buildJob($pickupAddress, $dropOffAddress, $transportType, $packageType);
+        $job->setAssignmentCode($reference);
+
+        if (null !== $pickupAt) {
+            $pickup = $job->getPickups()[0] ?? null;
+            Assert::isInstanceOf($pickup, Pickup::class);
+            $pickup->setPickupAt($pickupAt);
+        }
+
+        $dropOff = $job->getDropOffs()[0] ?? null;
+        Assert::isInstanceOf($dropOff, DropOff::class);
+        $dropOff->setClientReference($reference);
+        $dropOff->setContactFirstName($firstName);
+        $dropOff->setContactLastName($lastName);
+        $dropOff->setContactEmail($email);
+        if (null !== $phone) {
+            $dropOff->setContactPhone($phone);
+        }
+
+        $result = $this->getStuartClient()->createJob($job);
+
+        return isset($result->error) ? null : $result->getId();
     }
 
     public function getPricing(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): ?int
