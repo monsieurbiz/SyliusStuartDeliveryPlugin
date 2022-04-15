@@ -15,6 +15,7 @@ namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Stuart;
 
 use DateTime;
 use Stuart\Client as StuartClient;
+use Stuart\Job;
 
 interface ClientInterface
 {
@@ -57,6 +58,8 @@ interface ClientInterface
     public function getPricing(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): ?int;
 
     public function getOnlineAddress(string $address, string $postcode, string $city): string;
+
+    public function getJob(int $jobId): ?Job;
 
     /**
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)

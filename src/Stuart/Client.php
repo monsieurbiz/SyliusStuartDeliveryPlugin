@@ -155,6 +155,16 @@ final class Client implements ClientInterface
         return (int) ($result->amount * 100);
     }
 
+    public function getJob(int $jobId): ?Job
+    {
+        $result = $this->getStuartClient()->getJob($jobId);
+        if (isset($result->error)) {
+            return null;
+        }
+
+        return isset($result->error) ? null : $result;
+    }
+
     public function getOnlineAddress(string $address, string $postcode, string $city): string
     {
         return sprintf('%s, %s %s', $address, $postcode, $city);
