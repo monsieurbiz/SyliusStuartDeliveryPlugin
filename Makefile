@@ -209,3 +209,9 @@ help: ## Dislay this help
 	echo $$line | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m%s\n", $$1, $$2}'; fi; \
 	done; unset IFS;
 .PHONY: help
+
+###
+### ASYNC
+### ----
+async.consume: ## Consume Stuart messages for 20 seconds
+	${CONSOLE} messenger:consume async_stuart --time-limit=20
