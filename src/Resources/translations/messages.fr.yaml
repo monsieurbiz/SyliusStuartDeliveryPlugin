@@ -1,13 +1,34 @@
 monsieurbiz_stuart_delivery_plugin:
-  plugin_name: Livraison avec Stuart
-  description: Gérez vos livraisons coursier avec Stuart
-  settings:
-    address: Adresse de récupération du colis
-    postcode: Code postal de récupération du colis
-    city: Ville de récupération du colis
-    phone_number: Téléphone de récupération du colis
-    api_mode: API mode
-    api_mode_sandbox: Sandbox
-    api_mode_production: Production
-    api_client_id: API Client ID
-    api_client_secret: API Client Secret
+    plugin_name: Livraison avec Stuart
+    calculator: Calculateur de prix pour une livraison Stuart
+    description: Gérez vos livraisons coursier avec Stuart
+    rule_checker: Validation de l'adresse de livraison Stuart
+    settings:
+        address: Adresse de récupération du colis
+        postcode: Code postal de récupération du colis
+        city: Ville de récupération du colis
+        phone_number: Téléphone de récupération du colis
+        api_mode: API mode
+        api_mode_sandbox: Sandbox
+        api_mode_production: Production
+        api_client_id: API Client ID
+        api_client_secret: API Client Secret
+        ui:
+            package_type: Type de paquet
+            package_type_help: 🇪🇸 🇬🇧 Espagne et Royaume-Uni seulement. Obligatoire si Type de Transport est non renseigné.
+            package_types:
+                l: Grand
+                m: Moyen
+                s: Petit
+                xl: Très grand
+                xs: Très petit
+            transport_type: Type de transport
+            transport_type_help: 🇫🇷 France Seulement. Obligatoire si Type de Paquet est non renseigné.
+            transport_types:
+                bike: Vélo
+                car: Voiture
+                cargo_bike: Vélo cargo
+                cargo_bike_xl: Vélo cargo XL
+                motorbike: Moto
+                motorbike_xl: Moto XL
+                van: Camionette

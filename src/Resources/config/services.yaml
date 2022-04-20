@@ -10,3 +10,17 @@ services:
 
     MonsieurBiz\SyliusStuartDeliveryPlugin\:
         resource: '../../*'
+
+    MonsieurBiz\SyliusStuartDeliveryPlugin\Calculator\StuartCalculator:
+        tags:
+            -   name: sylius.shipping_calculator
+                calculator: !php/const MonsieurBiz\SyliusStuartDeliveryPlugin\Calculator\StuartCalculator::TYPE
+                label: 'monsieurbiz_stuart_delivery_plugin.calculator'
+                form_type: MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\Calculator\StuartCalculatorConfigurationType
+
+    MonsieurBiz\SyliusStuartDeliveryPlugin\Checker\Rule\StuartRuleChecker:
+        tags:
+            -   name: sylius.shipping_method_rule_checker
+                type: !php/const MonsieurBiz\SyliusStuartDeliveryPlugin\Checker\Rule\StuartRuleChecker::TYPE
+                label: 'monsieurbiz_stuart_delivery_plugin.rule_checker'
+                form_type: MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\Rule\StuartRuleConfigurationType

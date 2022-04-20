@@ -1,3 +1,4 @@
 monsieurbiz_stuart_delivery_plugin:
     incorrect_pickup_address: Adresse de retrait invalide
     incorrect_api_credentials: Identifiants d'API invalides
+    no_package_type_and_no_transport_type: Vous devez choisir au moins un type de colis ou un type de transport

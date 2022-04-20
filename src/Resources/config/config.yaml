@@ -1,2 +1,6 @@
 imports:
     - { resource: 'monsieurbiz/settings.yaml' }
+    - { resource: 'sylius/fixtures.yaml' }
+
+twig:
+    form_themes: ['@MonsieurBizSyliusStuartDeliveryPlugin/Admin/Form/theme.html.twig']

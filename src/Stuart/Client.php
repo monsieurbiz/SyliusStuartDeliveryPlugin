@@ -19,6 +19,7 @@ use Stuart\Client as StuartClient;
 use Stuart\Infrastructure\Authenticator;
 use Stuart\Infrastructure\Environment;
 use Stuart\Infrastructure\HttpClient;
+use Stuart\Job;
 
 final class Client implements ClientInterface
 {
@@ -69,12 +70,61 @@ final class Client implements ClientInterface
     public function validatePickupAddress(string $address, string $postcode, string $city, ?string $phoneNumber): bool
     {
         $result = $this->getStuartClient()->validatePickupAddress(
-            sprintf('%s, %s %s', $address, $postcode, $city),
+            $this->getOnlineAddress($address, $postcode, $city),
             $phoneNumber
         );
 
-        dump($result);
+        return $result->success ?? false;
+    }
+
+    public function validateDropOffAddress(string $address, string $postcode, string $city, ?string $phoneNumber): bool
+    {
+        $result = $this->getStuartClient()->validateDropoffAddress(
+            $this->getOnlineAddress($address, $postcode, $city),
+            $phoneNumber
+        );
 
         return $result->success ?? false;
+    }
+
+    public function validateJob(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): bool
+    {
+        $job = $this->buildJob($pickupAddress, $dropOffAddress, $transportType, $packageType);
+        $result = $this->getStuartClient()->validateJob($job);
+
+        return true === $result;
+    }
+
+    public function getPricing(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): ?int
+    {
+        $job = $this->buildJob($pickupAddress, $dropOffAddress, $transportType, $packageType);
+        $result = $this->getStuartClient()->getPricing($job);
+        if (isset($result->error)) {
+            return null;
+        }
+
+        return (int) ($result->amount * 100);
+    }
+
+    public function getOnlineAddress(string $address, string $postcode, string $city): string
+    {
+        return sprintf('%s, %s %s', $address, $postcode, $city);
+    }
+
+    private function buildJob(string $pickupAddress, string $dropOffAddress, ?string $transportType = null, ?string $packageType = null): Job
+    {
+        $job = new Job();
+        $job->addPickup($pickupAddress);
+        $dropOff = $job->addDropOff($dropOffAddress);
+
+        if (null !== $transportType) {
+            $job->setTransportType($transportType);
+        }
+
+        if (null !== $packageType) {
+            $dropOff->setPackageType($packageType);
+        }
+
+        return $job;
     }
 }
