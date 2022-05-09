@@ -26,23 +26,29 @@ final class StuartCalculator extends AbstractServiceInteraction implements Calcu
      * In case of price calculating error we throw a dedicated exception.
      * But there's no reason we can not calculate price if StuartRuleChecker is chosed
      * in shipping method configuration.
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function calculate(ShipmentInterface $subject, array $configuration): int
     {
         $shippingAddress = $this->getShippingAddress($subject);
-        if (null === $shippingAddress) {
-            throw new StuartDeliveryException('Invalid shipping address');
+        $order = $this->getOrder($subject);
+
+        if (null === $shippingAddress || null === $order) {
+            throw new StuartDeliveryException('Incomplete or missing order');
         }
 
         $pickupAddress = $this->getPickupAddress();
         $dropOffAddress = $this->getDropOffAddress($shippingAddress);
+        $deliveryType = $this->getDeliveryTypeProvider()->getType($order);
 
         try {
             $pricing = $this->getClient()->getPricing(
                 $pickupAddress,
                 $dropOffAddress,
-                $configuration['transportType'] ?? null,
-                $configuration['packageType'] ?? null
+                $deliveryType->getTransportType(),
+                $deliveryType->getPackageType()
             );
         } catch (\Exception $e) {
             $this->getLogger()->error($e->getMessage());

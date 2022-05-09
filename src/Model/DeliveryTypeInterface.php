@@ -11,10 +11,11 @@
 
 declare(strict_types=1);
 
-namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Form\Type\Calculator;
+namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Model;
 
-use Symfony\Component\Form\AbstractType;
-
-final class StuartCalculatorConfigurationType extends AbstractType
+interface DeliveryTypeInterface
 {
+    public function getPackageType(): ?string;
+
+    public function getTransportType(): ?string;
 }
