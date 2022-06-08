@@ -1,3 +1,16 @@
 imports:
     - { resource: 'monsieurbiz/settings.yaml' }
     - { resource: 'sylius/fixtures.yaml' }
+    - { resource: 'sylius/state_machine.yaml' }
+    - { resource: 'sylius/ui.yaml' }
+
+framework:
+    messenger:
+        transports:
+            async_stuart:
+                dsn: '%env(MONSIEURBIZ_STUART_DELIVERY_MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queue_name: 'monsieurbiz_stuart'
+
+        routing:
+            MonsieurBiz\SyliusStuartDeliveryPlugin\Message\ExportableOrderMessage: async_stuart

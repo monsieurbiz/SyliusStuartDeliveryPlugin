@@ -1,0 +1,10 @@
+<div class="ui segment">
+    <div class="ui small dividing header">{{ 'monsieurbiz_stuart_delivery_plugin.ui.stuart_delivery_tracking'|trans }}</div>
+    {% if trackingUrl %}
+        <iframe allowfullscreen style="border: none" src="{{ trackingUrl }}" width="100%" height="400px"></iframe>
+    {% else %}
+        <div class="ui warning message">
+            {{ 'monsieurbiz_stuart_delivery_plugin.ui.no_tracked_order'|trans }}
+        </div>
+    {% endif %}
+</div>

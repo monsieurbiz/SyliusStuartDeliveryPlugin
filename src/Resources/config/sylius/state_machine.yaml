@@ -1,0 +1,8 @@
+winzou_state_machine:
+    sylius_order:
+        callbacks:
+            after:
+                monsieurbiz_stuart_send_job:
+                    on: "create"
+                    do: ["@monsieurbiz.stuart_delivery.transfer.job", "sendFromOrder"]
+                    args: ["object"]

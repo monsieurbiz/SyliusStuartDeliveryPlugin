@@ -1,0 +1,5 @@
+monsieurbiz_stuart_delivery_shop_partial_job_tracking:
+    path: /stuart/order/{orderId}/tracking
+    methods: [ GET ]
+    defaults:
+        _controller: MonsieurBiz\SyliusStuartDeliveryPlugin\Controller\JobController::trackingAction
