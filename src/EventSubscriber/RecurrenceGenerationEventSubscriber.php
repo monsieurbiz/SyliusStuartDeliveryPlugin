@@ -16,6 +16,7 @@ namespace MonsieurBiz\SyliusStuartDeliveryPlugin\EventSubscriber;
 use DateInterval;
 use DateTime;
 use MonsieurBiz\SyliusShippingSlotPlugin\Event\RecurrenceGenerationEvent;
+use MonsieurBiz\SyliusStuartDeliveryPlugin\Calculator\StuartCalculator;
 use MonsieurBiz\SyliusStuartDeliveryPlugin\Stuart\AbstractServiceInteraction;
 use Sylius\Component\Core\Model\OrderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -35,6 +36,11 @@ final class RecurrenceGenerationEventSubscriber extends AbstractServiceInteracti
     public function onRecurrenceGeneration(RecurrenceGenerationEvent $event): void
     {
         $recurrences = [];
+
+        $shippingMethod = $event->getShippingMethod();
+        if (null === $shippingMethod || StuartCalculator::TYPE !== $shippingMethod->getCalculator()) {
+            return;
+        }
 
         /** @var OrderInterface $cart */
         $cart = $this->getCart();
