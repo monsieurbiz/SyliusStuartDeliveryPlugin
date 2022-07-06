@@ -56,6 +56,9 @@ jobs:
       - name: Composer Github Auth
         run: composer config -g github-oauth.github.com ${{ github.token }}
 
+      - name: Update composer
+        run: sudo composer self-update
+
       - name: Create Sylius-Standard project without install
         run: |
           composer create-project --prefer-dist --no-scripts --no-progress --no-install sylius/sylius-standard sylius "${{ matrix.sylius }}"
@@ -69,6 +72,7 @@ jobs:
       - name: Setup some requirements
         working-directory: ./sylius
         run: |
+            composer config --no-plugins allow-plugins true
             composer config repositories.plugin '{"type": "path", "url": "../plugin/"}'
             composer config extra.symfony.allow-contrib true
             composer config minimum-stability dev
