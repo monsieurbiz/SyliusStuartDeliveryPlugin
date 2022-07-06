@@ -47,6 +47,9 @@ jobs:
 
       - run: mkdir -p /home/runner/{.composer/cache,.config/composer}
 
+      - name: Update composer
+        run: sudo composer self-update
+
       - name: Composer Github Auth
         run: composer config -g github-oauth.github.com ${{ github.token }}
 
