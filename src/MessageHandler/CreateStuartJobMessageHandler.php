@@ -134,7 +134,7 @@ final class CreateStuartJobMessageHandler implements MessageHandlerInterface, Lo
             return false;
         }
 
-        return null === ($shippingMethod = $shipment->getMethod()) || StuartCalculator::TYPE !== $shippingMethod->getCalculator();
+        return null !== ($shippingMethod = $shipment->getMethod()) && StuartCalculator::TYPE === $shippingMethod->getCalculator();
     }
 
     private function getPickupAddress(): string
