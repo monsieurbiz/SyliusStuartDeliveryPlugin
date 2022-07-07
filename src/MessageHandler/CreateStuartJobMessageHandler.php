@@ -20,6 +20,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use MonsieurBiz\SyliusSettingsPlugin\Settings\SettingsInterface;
 use MonsieurBiz\SyliusShippingSlotPlugin\Entity\OrderInterface as MonsieurBizOrderInterface;
 use MonsieurBiz\SyliusShippingSlotPlugin\Entity\SlotInterface;
+use MonsieurBiz\SyliusStuartDeliveryPlugin\Calculator\StuartCalculator;
 use MonsieurBiz\SyliusStuartDeliveryPlugin\Entity\StuartJobIdInterface;
 use MonsieurBiz\SyliusStuartDeliveryPlugin\Exception\StuartDeliveryException;
 use MonsieurBiz\SyliusStuartDeliveryPlugin\Helper\LoggerAwareTrait;
@@ -32,6 +33,7 @@ use Sylius\Component\Addressing\Model\AddressInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
@@ -100,6 +102,10 @@ final class CreateStuartJobMessageHandler implements MessageHandlerInterface, Lo
         $customer = $order->getCustomer();
         $slot = $this->getSlot($order);
 
+        if (!$this->isStuartDelivery($order)) {
+            return;
+        }
+
         if (null === $shippingAddress || null === $customer || null === $slot) {
             throw new StuartDeliveryException('Incomplete order');
         }
@@ -118,6 +124,17 @@ final class CreateStuartJobMessageHandler implements MessageHandlerInterface, Lo
 
             throw $exception;
         }
+    }
+
+    private function isStuartDelivery(OrderInterface $order): bool
+    {
+        /** @var false|ShipmentInterface $shipment */
+        $shipment = $order->getShipments()->last();
+        if (!$shipment) {
+            return false;
+        }
+
+        return null === ($shippingMethod = $shipment->getMethod()) || StuartCalculator::TYPE !== $shippingMethod->getCalculator();
     }
 
     private function getPickupAddress(): string

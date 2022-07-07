@@ -1,8 +1,8 @@
 winzou_state_machine:
-    sylius_order:
+    sylius_payment:
         callbacks:
             after:
                 monsieurbiz_stuart_send_job:
-                    on: "create"
+                    on: ["complete"]
                     do: ["@monsieurbiz.stuart_delivery.transfer.job", "sendFromOrder"]
                     args: ["object"]
