@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace MonsieurBiz\SyliusStuartDeliveryPlugin\Transfer;
 
 use MonsieurBiz\SyliusStuartDeliveryPlugin\Message\ExportableOrderMessage;
-use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\Component\Core\Model\PaymentInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class JobTransfer
@@ -26,9 +26,9 @@ final class JobTransfer
         $this->bus = $bus;
     }
 
-    public function sendFromOrder(OrderInterface $order): void
+    public function sendFromOrder(PaymentInterface $payment): void
     {
-        if (null !== $order->getId()) {
+        if (null !== ($order = $payment->getOrder()) && null !== $order->getId()) {
             $this->bus->dispatch(new ExportableOrderMessage($order));
         }
     }
